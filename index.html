@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JHU SPEAR · Turn-Taking Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --ink: #1a1a1a;
+      --ink-light: #4a4a4a;
+      --ink-faint: #888;
+      --paper: #fafaf8;
+      --rule: #ddd9d3;
+      --navy: #002D72;
+      --navy-mid: #1a4a9e;
+      --navy-light: #eaeff8;
+      --green: #1a6b3a;
+      --green-light: #e6f2eb;
+      --amber: #b45309;
+      --serif: 'Times New Roman', Times, Georgia, serif;
+      --sans: 'Times New Roman', Times, Georgia, serif;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--serif);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 0 80px;
+    }
+
+    .hero {
+      width: 100%;
+      background: linear-gradient(135deg, var(--navy) 0%, #1a4a9e 60%, #2d6bb5 100%);
+      color: #fff;
+      padding: 52px 24px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-inner {
+      width: 100%;
+      max-width: 660px;
+    }
+
+    .institution {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.55);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(1.75rem, 4vw, 2.4rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: #fff;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .badge {
+      font-size: 11.5px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.9);
+      letter-spacing: 0.02em;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 660px;
+      padding: 0 24px;
+    }
+
+    .intro {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--ink-light);
+      margin: 40px 0 36px;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 40px;
+    }
+
+    .step {
+      display: flex;
+      gap: 18px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--rule);
+      align-items: flex-start;
+    }
+
+    .step:first-child {
+      border-top: 1px solid var(--rule);
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--navy-light);
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step-body h4 {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
+
+    .step-body p {
+      font-size: 13.5px;
+      color: var(--ink-light);
+      line-height: 1.6;
+    }
+
+    .action-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .action-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 22px 22px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      cursor: pointer;
+    }
+
+    .action-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .action-card.book {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .action-card.consent {
+      background: var(--green);
+      color: #fff;
+    }
+
+    .card-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .card-sub {
+      font-size: 12.5px;
+      opacity: 0.75;
+      line-height: 1.45;
+    }
+
+    .card-arrow {
+      margin-top: auto;
+      font-size: 18px;
+      opacity: 0.6;
+    }
+
+    .note {
+      padding: 15px 18px;
+      background: #fffbeb;
+      border-left: 3px solid #f59e0b;
+      font-size: 13px;
+      color: #78350f;
+      line-height: 1.6;
+      margin-bottom: 40px;
+      border-radius: 0 4px 4px 0;
+    }
+
+    footer {
+      padding-top: 24px;
+      border-top: 1px solid var(--rule);
+      font-size: 12px;
+      color: var(--ink-faint);
+      line-height: 1.75;
+    }
+
+    @media (max-width: 500px) {
+      .action-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="institution">Johns Hopkins University · SPEAR Lab</div>
+      <h1>SPEAR — Turn-Taking Naturalness Conversational Study</h1>
+      <div class="badges">
+        <span class="badge">Audio &amp; Video Recorded</span>
+        <span class="badge">~70 minutes</span>
+        <span class="badge">Paired Session</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <p class="intro">
+      Thank you for your interest. In this study, we match participants with a stranger based on the time slot they
+      select. You will complete 10 short 4 minute long spoken conversations with another participant in the same time block.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Book a time slot</h4>
+          <p>Use the scheduling link below. Include your Prolific ID when booking — this is required to match your
+            record and process payment.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Complete the consent form</h4>
+          <p>Once your slot is confirmed, sign the Participant Informed Consent Form before attending. You cannot begin
+            the session without it.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Attend your session</h4>
+          <p>A study monitor will guide you and your partner to complete the study conversations.</p>
+        </div>
+      </div>
+    </div>
+    <div class="action-cards">
+      <a href="https://calendly.com/spearjhu/turn-taking-emotion-human-human-conversation-sessioin" class="action-card book">
+        <div class="card-label">Step 1 · Match by time slot</div>
+        <div class="card-title">Book a time slot</div>
+        <div class="card-sub"><strong>Important:</strong> We match participants with a stranger based on the time slot you select. Please include your Prolific ID when booking so we can confirm your session.</div>
+        <div class="card-arrow">→</div>
+      </a>
+      <!-- <a href="https://calendly.com/harshada-gundecha06/turn-taking-naturalness-conversational-study-clone" class="action-card book" style="background: #1a4a9e;">
+      <div class="card-label">Step 1 · Booking alone</div>
+      <div class="card-title">Book as an individual</div>
+      <div class="card-sub">We'll match you with a partner</div>
+      <div class="card-arrow">→</div> -->
+      </a>
+      <!-- <a href="https://calendly.com/harshada-gundecha06/turn-taking-naturalness-conversational-study" class="action-card book">
+        <div class="card-label">Step 1 · New participants</div>
+        <div class="card-title">Book a time slot</div>
+        <div class="card-sub">Opens the scheduling calendar</div>
+        <div class="card-arrow">→</div>
+      </a> -->
+      <a href="https://apps.docusign.com/webforms/us/4b673809fb2e6016691b951d3677403f" target="_blank"
+        class="action-card consent">
+        <div class="card-label">Step 2 · Already scheduled</div>
+        <div class="card-title">Complete consent form</div>
+        <div class="card-sub">Required before your session begins</div>
+        <div class="card-arrow">→</div>
+      </a>
+    </div>
+
+    <div class="note">
+      <strong>Before you book:</strong> You will need a computer, working camera and microphone, and a quiet space with
+      stable internet. If you cannot attend after booking, please message us on Prolific as soon as possible.
+    </div>
+
+    <footer>
+      For questions, contact the study team via Prolific messaging. Do not share personal contact details during the
+      conversation itself.
+    </footer>
+
+  </div>
+</body>
+
+</html>
